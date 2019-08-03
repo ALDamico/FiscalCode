@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Continents.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Municipalities.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Provinces.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Regions.sql" dialect="SQLite" />
+  </component>
+</project>
