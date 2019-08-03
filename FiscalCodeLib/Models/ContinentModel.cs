@@ -1,6 +1,8 @@
+using FiscalCodeLib.Interfaces;
+
 namespace FiscalCodeLib.Models
 {
-    public class ContinentModel
+    public class ContinentModel : IFiscalCodeModel
     {
         public ContinentModel(int id, string name)
         {
