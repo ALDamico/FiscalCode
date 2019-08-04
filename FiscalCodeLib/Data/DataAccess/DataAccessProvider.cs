@@ -9,7 +9,7 @@ namespace FiscalCodeLib.Data.DataAccess
         {
         }
 
-        public DataAccessProvider(DbContextOptions<DataAccessProvider> options)
+        public DataAccessProvider(DbContextOptions options)
             : base(options)
         {
         }

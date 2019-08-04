@@ -37,9 +37,13 @@ namespace DataAccessTests
         [Fact]
         public void ReadTest()
         {
-            var dap = new DataAccessProvider();
             var countries = new List<ForeignCountryModel>();
-            countries = dap.ForeignCountries.ToList();
+            using (var dap = new DataAccessProvider())
+            {
+                countries = dap.ForeignCountries.ToList();
+            }
+
+
             Assert.True(countries.Count > 0);
         }
     }

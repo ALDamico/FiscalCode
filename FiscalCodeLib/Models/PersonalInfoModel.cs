@@ -21,24 +21,6 @@ namespace FiscalCodeLib.Models
             using (var db = new DataAccessProvider())
             {
                 PlaceOfBirth = ModelFactory.GetByPlaceName(placeOfBirth);
-//                try
-//                {
-//                    PlaceOfBirth =
-//                        ModelFactory.GetByName(typeof(ItalianMunicipalityModel), placeOfBirth) as
-//                            ItalianMunicipalityModel;
-//                }
-//                catch (Exception )
-//                {
-//                    try
-//                    {
-//                        PlaceOfBirth =
-//                            ModelFactory.GetByName(typeof(ForeignCountryModel), placeOfBirth) as ForeignCountryModel;
-//                    }
-//                    catch (Exception )
-//                    {
-//                        throw new InvalidOperationException("Unable to instantiate object.");
-//                    }
-//                }
             }
         }
 

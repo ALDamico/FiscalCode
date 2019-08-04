@@ -28,17 +28,21 @@ namespace FiscalCodeLib.Factories
                 var targetType = _typeList.FirstOrDefault(t => t == modelType.Name);
 
 
-                if (targetType == nameof(ContinentModel))
-                    return db.Continents.FirstOrDefault(c => c.Name == name);
-                if (targetType == nameof(ForeignCountryModel))
-                    return db.ForeignCountries.FirstOrDefault(fc => fc.Name == name);
-                if (targetType == nameof(ProvinceModel))
-                    return db.Provinces.FirstOrDefault(p => p.Name == name);
-                if (targetType == nameof(RegionModel))
-                    return db.Regions.FirstOrDefault(r => r.Name == name);
-                if (targetType == nameof(ItalianMunicipalityModel))
-                    return db.ItalianMunicipalities.FirstOrDefault(m => m.Name == name);
-                throw new NotSupportedException($"Can't determine an entity for type {targetType}");
+                switch (targetType)
+                {
+                    case nameof(ContinentModel):
+                        return db.Continents.FirstOrDefault(c => c.Name == name);
+                    case nameof(ForeignCountryModel):
+                        return db.ForeignCountries.FirstOrDefault(fc => fc.Name == name);
+                    case nameof(ProvinceModel):
+                        return db.Provinces.FirstOrDefault(p => p.Name == name);
+                    case nameof(RegionModel):
+                        return db.Regions.FirstOrDefault(r => r.Name == name);
+                    case nameof(ItalianMunicipalityModel):
+                        return db.ItalianMunicipalities.FirstOrDefault(m => m.Name == name);
+                    default:
+                        throw new NotSupportedException($"Can't determine an entity for type {targetType}");
+                }
             }
         }
 
@@ -48,20 +52,20 @@ namespace FiscalCodeLib.Factories
             {
                 var targetType = _typeList.FirstOrDefault(t => t == modelType.Name);
 
-                if (targetType == nameof(ContinentModel))
+                switch (targetType)
                 {
-                    var output = db.Continents.FirstOrDefault(c => c.Id == id);
-                    return output;
+                    case nameof(ContinentModel):
+                        return db.Continents.FirstOrDefault(c => c.Id == id);
+                    case nameof(ForeignCountryModel):
+                        return db.ForeignCountries.FirstOrDefault(fc => fc.Id == id);
+                    case nameof(ProvinceModel):
+                        return db.Provinces.FirstOrDefault(p => p.Id == id);
+                    case nameof(RegionModel):
+                        return db.Regions.FirstOrDefault(r => r.Id == id);
+                    case nameof(ItalianMunicipalityModel):
+                        return db.ItalianMunicipalities.FirstOrDefault(m => m.Id == id);
                 }
 
-                if (targetType == nameof(ForeignCountryModel))
-                    return db.ForeignCountries.FirstOrDefault(fc => fc.Id == id);
-                if (targetType == nameof(ProvinceModel))
-                    return db.Provinces.FirstOrDefault(p => p.Id == id);
-                if (targetType == nameof(RegionModel))
-                    return db.Regions.FirstOrDefault(r => r.Id == id);
-                if (targetType == nameof(ItalianMunicipalityModel))
-                    return db.ItalianMunicipalities.FirstOrDefault(m => m.Id == id);
                 throw new NotSupportedException($"Can't determine an entity for type {targetType}");
             }
         }
