@@ -6,5 +6,6 @@
     <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Municipalities.sql" dialect="SQLite" />
     <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Provinces.sql" dialect="SQLite" />
     <file url="file://$PROJECT_DIR$/FiscalCodeLib/Data/Sqlite_Scripts/Regions.sql" dialect="SQLite" />
+    <file url="PROJECT" dialect="SQLite" />
   </component>
 </project>

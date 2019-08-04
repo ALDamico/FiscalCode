@@ -4,6 +4,7 @@ using System.Linq;
 using FiscalCodeLib.Data.DataAccess;
 using FiscalCodeLib.Enums;
 using FiscalCodeLib.Factories;
+using FiscalCodeLib.Generator;
 using FiscalCodeLib.Models;
 using Xunit;
 
@@ -48,21 +49,12 @@ namespace DataAccessTests
         }
 
         [Fact]
-        public void SurnameTripletTest()
+        public void GenerationTest()
         {
             var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
                 "BRONTE");
-            var fc = new FiscalCodeModel(person);
-            Assert.Equal("DMC", fc.SurnameTriplet);
-        }
-
-        [Fact]
-        public void FiscalCodeTest()
-        {
-            var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
-                "BRONTE");
-            var fc = new FiscalCodeModel(person);
-            Assert.Equal("DMCNRL90E03B202A", fc.GetFiscalCode());
+            FiscalCodeGenerator gen = new FiscalCodeGenerator(person);
+            Assert.True(gen.FiscalCodes.Count == 8);
         }
     }
 }
