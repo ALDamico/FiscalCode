@@ -4,6 +4,7 @@ using System.Linq;
 using FiscalCodeLib.Data.DataAccess;
 using FiscalCodeLib.Enums;
 using FiscalCodeLib.Factories;
+using FiscalCodeLib.Generator;
 using FiscalCodeLib.Models;
 using Xunit;
 
@@ -16,15 +17,6 @@ namespace DataAccessTests
         {
             var eu = ModelFactory.GetByName(typeof(ContinentModel), "Europa") as ContinentModel;
             Assert.Equal("Europa", eu.Name);
-        }
-
-        [Fact]
-        public void FiscalCodeTest()
-        {
-            var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
-                "BRONTE");
-            var fc = new FiscalCodeModel(person);
-            Assert.Equal("DMCNRL90E03B202A", fc.GetFiscalCode());
         }
 
         [Fact]
@@ -47,7 +39,7 @@ namespace DataAccessTests
         public void ReadTest()
         {
             var countries = new List<ForeignCountryModel>();
-            using (var dap = new SqliteDataAccessProvider())
+            using (var dap = new DataAccessProvider())
             {
                 countries = dap.ForeignCountries.ToList();
             }
@@ -57,12 +49,12 @@ namespace DataAccessTests
         }
 
         [Fact]
-        public void SurnameTripletTest()
+        public void GenerationTest()
         {
             var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
                 "BRONTE");
-            var fc = new FiscalCodeModel(person);
-            Assert.Equal("DMC", fc.SurnameTriplet);
+            FiscalCodeGenerator gen = new FiscalCodeGenerator(person);
+            Assert.True(gen.FiscalCodes.Count == 8);
         }
     }
 }

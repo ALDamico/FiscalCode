@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FiscalCodeLib.Utils
 {
-    public static class UtilityMethods
+    public static class CommonDataStructures
     {
         public static readonly char[] Vowels = {'A', 'E', 'I', 'O', 'U'};
 
@@ -62,6 +62,7 @@ namespace FiscalCodeLib.Utils
             {'Y', 24},
             {'Z', 25}
         };
+
         public static readonly Dictionary<char, int> OddPositionMap = new Dictionary<char, int>
         {
             {'A', 1},
@@ -106,11 +107,26 @@ namespace FiscalCodeLib.Utils
         {
             if (accumulationResult < 0)
             {
-                throw new ArgumentException("The parameter accumulationResult must be a positive integer in the range 0-25");
+                throw new ArgumentException(
+                    "The parameter accumulationResult must be a positive integer in the range 0-25");
             }
 
             int addend = accumulationResult % 26;
             return ((char) ('A' + addend));
         }
+
+        public static readonly Dictionary<char, char> OmocodeSubstitutions = new Dictionary<char, char>()
+        {
+            {'0', 'L'},
+            {'1', 'M'},
+            {'2', 'N'},
+            {'3', 'P'},
+            {'4', 'Q'},
+            {'5', 'R'},
+            {'6', 'S'},
+            {'7', 'T'},
+            {'8', 'U'},
+            {'9', 'V'}
+        };
     }
 }

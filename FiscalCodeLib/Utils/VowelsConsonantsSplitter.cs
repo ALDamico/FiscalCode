@@ -22,7 +22,7 @@ namespace FiscalCodeLib.Utils
         private void Split(string str)
         {
             foreach (var letter in str)
-                if (UtilityMethods.Vowels.Contains(letter))
+                if (CommonDataStructures.Vowels.Contains(letter))
                     Vowels.Add(letter);
                 else
                     Consonants.Add(letter);
