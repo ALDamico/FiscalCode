@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FiscalCodeLib.Enums;
 using FiscalCodeLib.Utils;
 
@@ -8,15 +9,17 @@ namespace FiscalCodeLib.Models
     {
         public FiscalCodeModel(PersonalInfoModel person)
         {
-            if (person == null) throw new ArgumentException("The PersonalInfoModel object can't be null");
-
-            Person = person;
+            Person = person ?? throw new ArgumentException("The PersonalInfoModel object can't be null");
+            
+            Omocodes = new List<string>();
+            
             CalculateSurnameTriplet();
             CalculateNameTriplet();
             CalculateYearRepresentation();
             CalculateDayRepresentation();
             MapMonthToRepresentation();
             SetPlaceCode();
+            CalculateCheckDigit();
         }
 
         public PersonalInfoModel Person { get; }
@@ -26,7 +29,7 @@ namespace FiscalCodeLib.Models
         public string DayGenderRepresentation { get; private set; }
         public string MonthRepresentation { get; private set; }
         public string Code { get; private set; }
-        public string CheckDigit { get; private set; }
+        public char CheckDigit { get; private set; }
 
         private void CalculateSurnameTriplet()
         {
@@ -59,7 +62,7 @@ namespace FiscalCodeLib.Models
             var splitter = new VowelsConsonantsSplitter(name);
             if (splitter.Consonants.Count >= 4)
             {
-                NameTriplet = splitter.Consonants[0] + splitter.Consonants[1].ToString() +
+                NameTriplet = splitter.Consonants[0] + splitter.Consonants[2].ToString() +
                               splitter.Consonants[3];
             }
             else if (splitter.Consonants.Count == 3)
@@ -94,7 +97,7 @@ namespace FiscalCodeLib.Models
             var gender = 0;
             if (Person.Gender == Gender.Female) gender += 40;
 
-            DayGenderRepresentation = (Person.DateOfBirth.Day + gender).ToString();
+            DayGenderRepresentation = Person.DateOfBirth.Day + gender >= 10?(Person.DateOfBirth.Day + gender).ToString(): "0" + Person.DateOfBirth.Day;
         }
 
         private void MapMonthToRepresentation()
@@ -111,6 +114,36 @@ namespace FiscalCodeLib.Models
 
         private void CalculateCheckDigit()
         {
+            var temporaryFiscalCode = SurnameTriplet + NameTriplet + YearOfBirthRepresentation + MonthRepresentation +
+                                      DayGenderRepresentation + Code;
+            if (temporaryFiscalCode.Length != 15)
+            {
+                throw new ArgumentException("An error occurred. Invalid length in temporary fiscal code");
+            }
+
+            int accumulator = 0;
+            for (int i = 0; i < temporaryFiscalCode.Length; i++)
+            {
+                if ((i + 1) % 2 == 0)
+                {
+                    accumulator += UtilityMethods.EvenPositionMap[temporaryFiscalCode[i]];
+                }
+                else
+                {
+                    accumulator += UtilityMethods.OddPositionMap[temporaryFiscalCode[i]];
+                }
+
+                
+            }
+            CheckDigit = UtilityMethods.GetCheckDigit(accumulator);
         }
+
+        public string GetFiscalCode()
+        {
+            return SurnameTriplet + NameTriplet + YearOfBirthRepresentation + MonthRepresentation +
+                   DayGenderRepresentation + Code + CheckDigit;
+        }
+        
+        public List<string> Omocodes { get; private set; }
     }
 }

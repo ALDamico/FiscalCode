@@ -12,6 +12,7 @@ namespace FiscalCodeLib.Data.DataAccess
         public DataAccessProvider(DbContextOptions options)
             : base(options)
         {
+            
         }
 
         public DbSet<ForeignCountryModel> ForeignCountries { get; set; }
@@ -25,7 +26,7 @@ namespace FiscalCodeLib.Data.DataAccess
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlite("DataSource=E:/Rider Projects/FiscalCode/FiscalCodeLib/Data/places.db");
+                optionsBuilder.UseSqlite("DataSource=C:/Users/aldam/code/FiscalCode/FiscalCodeLib/Data/places.db");
             }
         }
 
