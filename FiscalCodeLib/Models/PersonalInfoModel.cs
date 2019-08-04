@@ -27,18 +27,18 @@ namespace FiscalCodeLib.Models
         public string Name
         {
             get => _name;
-            set => _name = ValidateName(value);
+            private set => _name = ValidateName(value);
         }
 
         public string Surname
         {
             get => _surname;
-            set => _surname = ValidateName(value);
+            private set => _surname = ValidateName(value);
         }
 
-        public Gender Gender { get; set; }
+        public Gender Gender { get; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; }
 
         public IPlace PlaceOfBirth { get; set; }
 
@@ -48,7 +48,7 @@ namespace FiscalCodeLib.Models
             var replace = transliterated.Replace(" ", "")
                 .Replace("-", "")
                 .Replace(".", "")
-                .Replace("'", "");
+                .Replace("'", "").ToUpper();
             return replace;
         }
     }

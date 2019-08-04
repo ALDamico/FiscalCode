@@ -46,5 +46,14 @@ namespace DataAccessTests
 
             Assert.True(countries.Count > 0);
         }
+
+        [Fact]
+        public void SurnameTripletTest()
+        {
+            var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
+                "BRONTE");
+            var fc = new FiscalCodeModel(person);
+            Assert.Equal("DMC", fc.SurnameTriplet);
+        }
     }
 }
