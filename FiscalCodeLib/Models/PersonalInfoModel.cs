@@ -18,7 +18,7 @@ namespace FiscalCodeLib.Models
             Surname = surname;
             Gender = gender;
             DateOfBirth = dateOfBirth;
-            using (var db = new DataAccessProvider())
+            using (var db = new SqliteDataAccessProvider())
             {
                 PlaceOfBirth = ModelFactory.GetByPlaceName(placeOfBirth);
             }

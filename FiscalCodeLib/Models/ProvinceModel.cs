@@ -13,7 +13,7 @@ namespace FiscalCodeLib.Models
             Abbreviation = abbreviation;
             RegionId = regionId;
             AlternativeName = alternativeName;
-            using (var dap = new DataAccessProvider())
+            using (var dap = new SqliteDataAccessProvider())
             {
                 Region = dap.Regions.FirstOrDefault(r => r.Id == regionId);
             }

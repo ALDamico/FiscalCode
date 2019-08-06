@@ -12,7 +12,7 @@ namespace FiscalCodeLib.Models
             Name = name;
             Code = code;
             ContinentId = continentId;
-            using (var dap = new DataAccessProvider())
+            using (var dap = new SqliteDataAccessProvider())
             {
                 Continent = dap.Continents.FirstOrDefault(c => c.Id == continentId);
             }

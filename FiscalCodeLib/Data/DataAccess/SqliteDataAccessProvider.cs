@@ -1,18 +1,19 @@
-﻿using FiscalCodeLib.Models;
+﻿using System.IO;
+using System.Reflection;
+using FiscalCodeLib.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscalCodeLib.Data.DataAccess
 {
-    public class DataAccessProvider : DbContext
+    public class SqliteDataAccessProvider : DbContext
     {
-        public DataAccessProvider()
+        public SqliteDataAccessProvider()
         {
         }
 
-        public DataAccessProvider(DbContextOptions options)
+        public SqliteDataAccessProvider(DbContextOptions options)
             : base(options)
         {
-            
         }
 
         public DbSet<ForeignCountryModel> ForeignCountries { get; set; }
@@ -26,7 +27,7 @@ namespace FiscalCodeLib.Data.DataAccess
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlite("DataSource=C:/Users/aldam/code/FiscalCode/FiscalCodeLib/Data/places.db");
+                optionsBuilder.UseSqlite(GetConnectionString("places.db"));
             }
         }
 
@@ -81,6 +82,13 @@ namespace FiscalCodeLib.Data.DataAccess
                 .HasColumnName("municipality_name_alternative");
             modelBuilder.Entity<ItalianMunicipalityModel>().Property(m => m.ProvinceId).HasColumnName("fk_province_id");
             modelBuilder.Entity<ItalianMunicipalityModel>().Property(m => m.Code).HasColumnName("code");
+        }
+
+        private string GetConnectionString(string dbName)
+        {
+            var executable = Assembly.GetAssembly(typeof(SqliteDataAccessProvider)).Location;
+            var path = Path.GetDirectoryName(executable) + "/Data";
+            return $"Data Source={path}/{dbName}";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace FiscalCodeLib.Factories
 
         static ModelFactory()
         {
-            using (var db = new DataAccessProvider())
+            using (var db = new SqliteDataAccessProvider())
             {
                 _typeList = new List<string>();
                 var entityTypes = db.Model.GetEntityTypes().ToList();
@@ -23,7 +23,7 @@ namespace FiscalCodeLib.Factories
 
         public static IFiscalCodeModel GetByName(Type modelType, string name)
         {
-            using (var db = new DataAccessProvider())
+            using (var db = new SqliteDataAccessProvider())
             {
                 var targetType = _typeList.FirstOrDefault(t => t == modelType.Name);
 
@@ -48,7 +48,7 @@ namespace FiscalCodeLib.Factories
 
         public static IFiscalCodeModel GetById(Type modelType, int id)
         {
-            using (var db = new DataAccessProvider())
+            using (var db = new SqliteDataAccessProvider())
             {
                 var targetType = _typeList.FirstOrDefault(t => t == modelType.Name);
 
@@ -72,7 +72,7 @@ namespace FiscalCodeLib.Factories
 
         public static IPlace GetByPlaceName(string name)
         {
-            using (var db = new DataAccessProvider())
+            using (var db = new SqliteDataAccessProvider())
             {
                 IPlace place = db.ItalianMunicipalities.FirstOrDefault(p =>
                     string.Equals(p.Name, name, StringComparison.CurrentCultureIgnoreCase));

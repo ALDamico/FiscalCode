@@ -19,6 +19,15 @@ namespace DataAccessTests
         }
 
         [Fact]
+        public void FiscalCodeTest()
+        {
+            var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
+                "BRONTE");
+            var fc = new FiscalCodeModel(person);
+            Assert.Equal("DMCNRL90E03B202A", fc.GetFiscalCode());
+        }
+
+        [Fact]
         public void PersonalInfoModelTest()
         {
             var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
@@ -38,7 +47,7 @@ namespace DataAccessTests
         public void ReadTest()
         {
             var countries = new List<ForeignCountryModel>();
-            using (var dap = new DataAccessProvider())
+            using (var dap = new SqliteDataAccessProvider())
             {
                 countries = dap.ForeignCountries.ToList();
             }
@@ -54,15 +63,6 @@ namespace DataAccessTests
                 "BRONTE");
             var fc = new FiscalCodeModel(person);
             Assert.Equal("DMC", fc.SurnameTriplet);
-        }
-
-        [Fact]
-        public void FiscalCodeTest()
-        {
-            var person = new PersonalInfoModel("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
-                "BRONTE");
-            var fc = new FiscalCodeModel(person);
-            Assert.Equal("DMCNRL90E03B202A", fc.GetFiscalCode());
         }
     }
 }
