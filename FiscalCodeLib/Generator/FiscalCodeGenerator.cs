@@ -12,45 +12,45 @@ namespace FiscalCodeLib.Generator
         {
             _person = person;
             if (_person == null) throw new ArgumentException("The parameter person can't be null!");
-            FiscalCodes = new List<FiscalCodeModel>();
+            FiscalCodes = new List<FiscalCode>();
             CalculateFiscalCodes();
         }
 
-        public List<FiscalCodeModel> FiscalCodes { get; private set; }
+        public List<FiscalCode> FiscalCodes { get; private set; }
 
-        private PersonalInfo _person;
+        private readonly PersonalInfo _person;
 
         private string CalculateNameTriplet()
         {
             var name = _person.Name;
             var splitter = new VowelsConsonantsSplitter(name);
-            string NameTriplet = "";
+            string nameTriplet = "";
             if (splitter.Consonants.Count >= 4)
             {
-                NameTriplet = splitter.Consonants[0] + splitter.Consonants[2].ToString() +
+                nameTriplet = splitter.Consonants[0] + splitter.Consonants[2].ToString() +
                               splitter.Consonants[3];
             }
             else if (splitter.Consonants.Count == 3)
             {
-                NameTriplet = splitter.Consonants[0] + splitter.Consonants[1].ToString() + splitter.Consonants[2];
+                nameTriplet = splitter.Consonants[0] + splitter.Consonants[1].ToString() + splitter.Consonants[2];
             }
             else if (splitter.Consonants.Count == 2)
             {
-                NameTriplet = splitter.Consonants[0] + splitter.Consonants[1].ToString() + splitter.Vowels[0];
+                nameTriplet = splitter.Consonants[0] + splitter.Consonants[1].ToString() + splitter.Vowels[0];
             }
             else if (splitter.Consonants.Count == 1)
             {
                 if (splitter.Vowels.Count >= 2)
-                    NameTriplet = splitter.Consonants[0] + splitter.Vowels[0].ToString() + splitter.Vowels[1];
+                    nameTriplet = splitter.Consonants[0] + splitter.Vowels[0].ToString() + splitter.Vowels[1];
                 else
-                    NameTriplet = splitter.Consonants[0] + splitter.Vowels[0].ToString() + "X";
+                    nameTriplet = splitter.Consonants[0] + splitter.Vowels[0].ToString() + "X";
             }
             else
             {
-                NameTriplet = splitter.Vowels[0] + splitter.Vowels[1].ToString() + "X";
+                nameTriplet = splitter.Vowels[0] + splitter.Vowels[1].ToString() + "X";
             }
 
-            return NameTriplet;
+            return nameTriplet;
         }
 
         private string CalculateDayRepresentation()
@@ -61,7 +61,7 @@ namespace FiscalCodeLib.Generator
 
             dayGenderRepresentation = _person.DateOfBirth.Day + gender >= 10
                 ? (_person.DateOfBirth.Day + gender).ToString()
-                : "0" + _person.DateOfBirth.Day;
+                : "0" + _person.DateOfBirth.Day.ToString();
             return dayGenderRepresentation;
         }
 
@@ -141,10 +141,10 @@ namespace FiscalCodeLib.Generator
                                        CalculateYearRepresentation() + MapMonthToRepresentation() +
                                        CalculateDayRepresentation() + GetPlaceCode();
             char initialCheckDigit = CalculateCheckDigit(initialFiscalCode);
-            FiscalCodeModel firstFiscalCodeModel = new FiscalCodeModel(CalculateSurnameTriplet(),
+            FiscalCode firstFiscalCode = new FiscalCode(CalculateSurnameTriplet(),
                 CalculateNameTriplet(), CalculateYearRepresentation(), MapMonthToRepresentation(),
                 CalculateDayRepresentation(), GetPlaceCode(), initialCheckDigit);
-            FiscalCodes.Add(firstFiscalCodeModel);
+            FiscalCodes.Add(firstFiscalCode);
             foreach (var letter in initialFiscalCode)
             {
                 if (char.IsDigit(letter))
@@ -158,7 +158,7 @@ namespace FiscalCodeLib.Generator
                     var monthRepr = initialFiscalCode.Substring(8, 1);
                     var dayRepr = initialFiscalCode.Substring(9, 2);
                     var code = initialFiscalCode.Substring(11, 4);
-                    var newModel = new FiscalCodeModel(surnameTriplet, nameTriplet, yearRepr,
+                    var newModel = new FiscalCode(surnameTriplet, nameTriplet, yearRepr,
                         monthRepr, dayRepr, code, cd);
                     FiscalCodes.Add(newModel);
                 }

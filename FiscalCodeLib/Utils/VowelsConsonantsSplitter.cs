@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FiscalCodeLib.Utils
 {
-    public class VowelsConsonantsSplitter
+    public class VowelsConsonantsSplitter : IDisposable
     {
         public VowelsConsonantsSplitter(string str)
         {
@@ -16,8 +16,8 @@ namespace FiscalCodeLib.Utils
         }
 
 
-        public List<char> Vowels { get; }
-        public List<char> Consonants { get; }
+        public List<char> Vowels { get; private set; }
+        public List<char> Consonants { get; private set; }
 
         private void Split(string str)
         {
@@ -26,6 +26,12 @@ namespace FiscalCodeLib.Utils
                     Vowels.Add(letter);
                 else
                     Consonants.Add(letter);
+        }
+
+        public void Dispose()
+        {
+            Vowels = null;
+            Consonants = null;
         }
     }
 }

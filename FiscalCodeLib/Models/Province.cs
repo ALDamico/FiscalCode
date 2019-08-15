@@ -11,21 +11,31 @@ namespace FiscalCodeLib.Models
         {
             Name = name;
             Abbreviation = abbreviation;
-            RegionId = regionId;
             AlternativeName = alternativeName;
-            using (var dap = new SqliteDataAccessProvider())
-            {
-                Region = dap.Regions.FirstOrDefault(r => r.Id == regionId);
-            }
+        }
+
+        public Province(string name, string abbreviation, string alternativeName, Region region = null)
+        {
+            Name = name;
+            Abbreviation = abbreviation;
+            AlternativeName = alternativeName;
+            Region = region;
+        }
+
+        public Province(string name, string abbreviation, string alternativeName)
+        {
+            Name = name;
+            Abbreviation = abbreviation;
+            AlternativeName = alternativeName;
+            Region = null;
         }
 
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public int Id { get; set; }
 
-        [NotMapped] public Region Region { get; }
+        [NotMapped] public Region Region { get; set; }
 
-        public int RegionId { get; set; }
         public string AlternativeName { get; set; }
     }
 }

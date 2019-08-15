@@ -1,9 +1,7 @@
-DROP TABLE IF EXISTS Italian_Municipalities;
-
 CREATE TABLE Italian_Municipalities
 (
-    id                            INTEGER PRIMARY KEY AUTOINCREMENT,
-    municipality_name             TEXT COLLATE NOCASE,
+    id                            INTEGER PRIMARY KEY AUTO_INCREMENT,
+    municipality_name             TEXT,
     municipality_name_alternative TEXT,
     fk_province_id                INTEGER REFERENCES Italian_Provinces (id),
     code                          TEXT

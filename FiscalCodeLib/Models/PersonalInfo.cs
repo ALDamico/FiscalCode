@@ -18,10 +18,19 @@ namespace FiscalCodeLib.Models
             Surname = surname;
             Gender = gender;
             DateOfBirth = dateOfBirth;
-            using (var db = new SqliteDataAccessProvider())
+            using (var dap = new SqliteDataAccessProvider())
             {
-                PlaceOfBirth = ModelFactory.GetByPlaceName(placeOfBirth);
+                PlaceOfBirth = dap.GetMunicipalityByNameAsync(placeOfBirth).Result;
             }
+        }
+
+        public PersonalInfo(string name, string surname, Gender gender, DateTime dateOfBirth, IPlace placeOfBirth)
+        {
+            Name = name;
+            Surname = surname;
+            Gender = gender;
+            DateOfBirth = dateOfBirth;
+            PlaceOfBirth = placeOfBirth;
         }
 
         public string Name

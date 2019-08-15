@@ -6,9 +6,20 @@ using FiscalCodeLib.Utils;
 
 namespace FiscalCodeLib.Models
 {
-    public class FiscalCodeModel
+    public class FiscalCode
     {
-        internal FiscalCodeModel(string surnameTriplet, string nameTriplet, string yearOfBirthRepresentation,
+        private FiscalCode()
+        {
+            NameTriplet = "";
+            SurnameTriplet = "";
+            YearOfBirthRepresentation = "";
+            MonthRepresentation = "";
+            DayGenderRepresentation = "";
+            Code = "";
+            CheckDigit = new char();
+        }
+
+        public FiscalCode(string surnameTriplet, string nameTriplet, string yearOfBirthRepresentation,
             string monthRepresentation, string dayGenderRepresentation, string code, char checkDigit)
         {
             NameTriplet = nameTriplet;
@@ -20,6 +31,29 @@ namespace FiscalCodeLib.Models
             CheckDigit = checkDigit;
         }
 
+        public FiscalCode(string fullFiscalCode) : this()
+        {
+            if (string.IsNullOrEmpty(fullFiscalCode))
+            {
+                throw new ArgumentNullException("The fullFiscalCode parameter must not be null!");
+            }
+
+            try
+            {
+                SurnameTriplet = fullFiscalCode.Substring(0, 3);
+                NameTriplet = fullFiscalCode.Substring(3, 3);
+                YearOfBirthRepresentation = fullFiscalCode.Substring(6, 2);
+                MonthRepresentation = fullFiscalCode.Substring(8, 1);
+                DayGenderRepresentation = fullFiscalCode.Substring(9, 2);
+                Code = fullFiscalCode.Substring(11, 4);
+                CheckDigit = fullFiscalCode[15];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                //In theory we shouldn't be doing anything here
+            }
+        }
+
         public string NameTriplet { get; private set; }
         public string SurnameTriplet { get; private set; }
         public string YearOfBirthRepresentation { get; private set; }
@@ -29,15 +63,12 @@ namespace FiscalCodeLib.Models
         public char CheckDigit { get; private set; }
 
 
-        public string FiscalCode
+        public override string ToString()
         {
-            get
-            {
-                StringBuilder builder = new StringBuilder();
-                builder.Append(SurnameTriplet).Append(NameTriplet).Append(YearOfBirthRepresentation)
-                    .Append(MonthRepresentation).Append(DayGenderRepresentation).Append(Code).Append(CheckDigit);
-                return builder.ToString();
-            }
+            StringBuilder builder = new StringBuilder();
+            builder.Append(SurnameTriplet).Append(NameTriplet).Append(YearOfBirthRepresentation)
+                .Append(MonthRepresentation).Append(DayGenderRepresentation).Append(Code).Append(CheckDigit);
+            return builder.ToString();
         }
     }
 }

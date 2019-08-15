@@ -11,16 +11,40 @@ namespace FiscalCodeLib.Models
             Name = name;
             AlternativeName = alternativeName;
             Code = code;
-            ProvinceId = provinceId;
-            ModelFactory.GetById(typeof(Province), provinceId);
+            Province = new Province("", "", "", provinceId);
+            //Province = ModelFactory.GetById(typeof(Province), provinceId) as Province;
         }
 
-        public int Id { get; private set; }
-        public string AlternativeName { get; }
+        public ItalianMunicipality(string name, string alternativeName, string code, Province province)
+        {
+            Name = name;
+            AlternativeName = alternativeName;
+            Code = code;
+            Province = province;
+        }
 
-        [NotMapped] public Province Province { get; private set; }
+        public ItalianMunicipality(string name, string alternativeName, string code)
+        {
+            Name = name;
+            AlternativeName = alternativeName;
+            Code = code;
+        }
 
-        public int ProvinceId { get; }
+        public ItalianMunicipality(int id, string name, string alternativeName, string code, Province province)
+        {
+            Id = id;
+            Name = name;
+            AlternativeName = alternativeName;
+            Code = code;
+            Province = province;
+        }
+
+        public int Id { get; set; }
+        public string AlternativeName { get; set; }
+
+        public Province Province { get; set; }
+
+
         public string Name { get; }
         public string Code { get; }
 
