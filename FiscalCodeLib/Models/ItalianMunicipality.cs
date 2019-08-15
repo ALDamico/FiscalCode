@@ -4,21 +4,21 @@ using FiscalCodeLib.Interfaces;
 
 namespace FiscalCodeLib.Models
 {
-    public class ItalianMunicipalityModel : IPlace, IFiscalCodeModel
+    public class ItalianMunicipality : IPlace, IFiscalCodeModel
     {
-        public ItalianMunicipalityModel(string name, string alternativeName, string code, int provinceId)
+        public ItalianMunicipality(string name, string alternativeName, string code, int provinceId)
         {
             Name = name;
             AlternativeName = alternativeName;
             Code = code;
             ProvinceId = provinceId;
-            ModelFactory.GetById(typeof(ProvinceModel), provinceId);
+            ModelFactory.GetById(typeof(Province), provinceId);
         }
 
         public int Id { get; private set; }
         public string AlternativeName { get; }
 
-        [NotMapped] public ProvinceModel Province { get; private set; }
+        [NotMapped] public Province Province { get; private set; }
 
         public int ProvinceId { get; }
         public string Name { get; }

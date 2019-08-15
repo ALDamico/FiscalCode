@@ -9,6 +9,7 @@ namespace FiscalCodeLib.Factories
 {
     public static class ModelFactory
     {
+        //TODO Consider removing
         private static readonly List<string> _typeList;
 
         static ModelFactory()
@@ -30,15 +31,15 @@ namespace FiscalCodeLib.Factories
 
                 switch (targetType)
                 {
-                    case nameof(ContinentModel):
+                    case nameof(Continent):
                         return db.Continents.FirstOrDefault(c => c.Name == name);
-                    case nameof(ForeignCountryModel):
+                    case nameof(ForeignCountry):
                         return db.ForeignCountries.FirstOrDefault(fc => fc.Name == name);
-                    case nameof(ProvinceModel):
+                    case nameof(Province):
                         return db.Provinces.FirstOrDefault(p => p.Name == name);
-                    case nameof(RegionModel):
+                    case nameof(Region):
                         return db.Regions.FirstOrDefault(r => r.Name == name);
-                    case nameof(ItalianMunicipalityModel):
+                    case nameof(ItalianMunicipality):
                         return db.ItalianMunicipalities.FirstOrDefault(m => m.Name == name);
                     default:
                         throw new NotSupportedException($"Can't determine an entity for type {targetType}");
@@ -54,15 +55,15 @@ namespace FiscalCodeLib.Factories
 
                 switch (targetType)
                 {
-                    case nameof(ContinentModel):
+                    case nameof(Continent):
                         return db.Continents.FirstOrDefault(c => c.Id == id);
-                    case nameof(ForeignCountryModel):
+                    case nameof(ForeignCountry):
                         return db.ForeignCountries.FirstOrDefault(fc => fc.Id == id);
-                    case nameof(ProvinceModel):
+                    case nameof(Province):
                         return db.Provinces.FirstOrDefault(p => p.Id == id);
-                    case nameof(RegionModel):
+                    case nameof(Region):
                         return db.Regions.FirstOrDefault(r => r.Id == id);
-                    case nameof(ItalianMunicipalityModel):
+                    case nameof(ItalianMunicipality):
                         return db.ItalianMunicipalities.FirstOrDefault(m => m.Id == id);
                 }
 

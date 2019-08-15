@@ -7,12 +7,12 @@ using UnidecodeSharpCore;
 
 namespace FiscalCodeLib.Models
 {
-    public class PersonalInfoModel
+    public class PersonalInfo
     {
         private string _name;
         private string _surname;
 
-        public PersonalInfoModel(string name, string surname, Gender gender, DateTime dateOfBirth, string placeOfBirth)
+        public PersonalInfo(string name, string surname, Gender gender, DateTime dateOfBirth, string placeOfBirth)
         {
             Name = name;
             Surname = surname;

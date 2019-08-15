@@ -8,7 +8,7 @@ namespace FiscalCodeLib.Generator
 {
     public class FiscalCodeGenerator
     {
-        public FiscalCodeGenerator(PersonalInfoModel person)
+        public FiscalCodeGenerator(PersonalInfo person)
         {
             _person = person;
             if (_person == null) throw new ArgumentException("The parameter person can't be null!");
@@ -18,7 +18,7 @@ namespace FiscalCodeLib.Generator
 
         public List<FiscalCodeModel> FiscalCodes { get; private set; }
 
-        private PersonalInfoModel _person;
+        private PersonalInfo _person;
 
         private string CalculateNameTriplet()
         {

@@ -2,9 +2,9 @@ using FiscalCodeLib.Interfaces;
 
 namespace FiscalCodeLib.Models
 {
-    public class ContinentModel : IFiscalCodeModel
+    public class Continent : IFiscalCodeModel
     {
-        public ContinentModel(int id, string name)
+        public Continent(int id, string name)
         {
             Id = id;
             Name = name;

@@ -5,9 +5,9 @@ using FiscalCodeLib.Interfaces;
 
 namespace FiscalCodeLib.Models
 {
-    public class ForeignCountryModel : IPlace, IFiscalCodeModel
+    public class ForeignCountry : IPlace, IFiscalCodeModel
     {
-        internal ForeignCountryModel(string name, string code, int continentId)
+        internal ForeignCountry(string name, string code, int continentId)
         {
             Name = name;
             Code = code;
@@ -20,7 +20,7 @@ namespace FiscalCodeLib.Models
 
         public int Id { get; private set; }
         public int ContinentId { get; }
-        [NotMapped] public ContinentModel Continent { get; set; }
+        [NotMapped] public Continent Continent { get; set; }
 
         public string Name { get; }
         public string Code { get; }

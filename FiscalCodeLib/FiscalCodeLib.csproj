@@ -3,6 +3,11 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
         <RuntimeFrameworkVersion>2.1.9</RuntimeFrameworkVersion>
+        <Title>Fiscal Code</Title>
+        <Authors>Andrea Luciano Damico</Authors>
+        <Copyright>Copyright 2019 Andrea Luciano Damico</Copyright>
+        <RepositoryUrl>https://github.com/ALDamico/FiscalCode</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,6 +16,8 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="2.2.6" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
+        <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.17"/>
+        <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.17"/>
         <PackageReference Include="UnidecodeSharpCore" Version="2.0.1" />
     </ItemGroup>
 

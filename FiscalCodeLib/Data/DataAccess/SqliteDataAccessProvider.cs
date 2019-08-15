@@ -16,11 +16,11 @@ namespace FiscalCodeLib.Data.DataAccess
         {
         }
 
-        public DbSet<ForeignCountryModel> ForeignCountries { get; set; }
-        public DbSet<ContinentModel> Continents { get; set; }
-        public DbSet<RegionModel> Regions { get; set; }
-        public DbSet<ProvinceModel> Provinces { get; set; }
-        public DbSet<ItalianMunicipalityModel> ItalianMunicipalities { get; set; }
+        public DbSet<ForeignCountry> ForeignCountries { get; set; }
+        public DbSet<Continent> Continents { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<ItalianMunicipality> ItalianMunicipalities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -44,44 +44,44 @@ namespace FiscalCodeLib.Data.DataAccess
 
         private static void ConfigureContinentSet(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ContinentModel>().HasKey(c => c.Id);
-            modelBuilder.Entity<ContinentModel>().Property(c => c.Name).HasColumnName("continent_name");
+            modelBuilder.Entity<Continent>().HasKey(c => c.Id);
+            modelBuilder.Entity<Continent>().Property(c => c.Name).HasColumnName("continent_name");
         }
 
         private static void ConfigureForeignCountrySet(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ForeignCountryModel>().ToTable("Foreign_Countries").HasKey(fc => fc.Id);
-            modelBuilder.Entity<ForeignCountryModel>().Property(fc => fc.ContinentId).HasColumnName("fk_continent_id");
-            modelBuilder.Entity<ForeignCountryModel>().Property(fc => fc.Name).HasColumnName("foreign_country_name");
-            modelBuilder.Entity<ForeignCountryModel>().Property(fc => fc.Code).HasColumnName("code");
+            modelBuilder.Entity<ForeignCountry>().ToTable("Foreign_Countries").HasKey(fc => fc.Id);
+            modelBuilder.Entity<ForeignCountry>().Property(fc => fc.ContinentId).HasColumnName("fk_continent_id");
+            modelBuilder.Entity<ForeignCountry>().Property(fc => fc.Name).HasColumnName("foreign_country_name");
+            modelBuilder.Entity<ForeignCountry>().Property(fc => fc.Code).HasColumnName("code");
         }
 
         private static void ConfigureProvinceSet(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProvinceModel>().ToTable("Italian_Provinces").HasKey(p => p.Id);
-            modelBuilder.Entity<ProvinceModel>().Property(p => p.Name).HasColumnName("province_name");
-            modelBuilder.Entity<ProvinceModel>().Property(p => p.Abbreviation).HasColumnName("province_abbr");
-            modelBuilder.Entity<ProvinceModel>().Property(p => p.AlternativeName)
+            modelBuilder.Entity<Province>().ToTable("Italian_Provinces").HasKey(p => p.Id);
+            modelBuilder.Entity<Province>().Property(p => p.Name).HasColumnName("province_name");
+            modelBuilder.Entity<Province>().Property(p => p.Abbreviation).HasColumnName("province_abbr");
+            modelBuilder.Entity<Province>().Property(p => p.AlternativeName)
                 .HasColumnName("province_name_alternative");
-            modelBuilder.Entity<ProvinceModel>().Property(p => p.RegionId).HasColumnName("fk_id_italian_region");
+            modelBuilder.Entity<Province>().Property(p => p.RegionId).HasColumnName("fk_id_italian_region");
         }
 
         private static void ConfigureRegionSet(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RegionModel>().ToTable("Italian_Regions").HasKey(r => r.Id);
-            modelBuilder.Entity<RegionModel>().Property(r => r.Name).HasColumnName("region_name");
-            modelBuilder.Entity<RegionModel>().Property(r => r.AlternativeName)
+            modelBuilder.Entity<Region>().ToTable("Italian_Regions").HasKey(r => r.Id);
+            modelBuilder.Entity<Region>().Property(r => r.Name).HasColumnName("region_name");
+            modelBuilder.Entity<Region>().Property(r => r.AlternativeName)
                 .HasColumnName("region_name_alternative");
         }
 
         private static void ConfigureMunicipalitySet(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ItalianMunicipalityModel>().ToTable("Italian_Municipalities").HasKey(m => m.Id);
-            modelBuilder.Entity<ItalianMunicipalityModel>().Property(m => m.Name).HasColumnName("municipality_name");
-            modelBuilder.Entity<ItalianMunicipalityModel>().Property(m => m.AlternativeName)
+            modelBuilder.Entity<ItalianMunicipality>().ToTable("Italian_Municipalities").HasKey(m => m.Id);
+            modelBuilder.Entity<ItalianMunicipality>().Property(m => m.Name).HasColumnName("municipality_name");
+            modelBuilder.Entity<ItalianMunicipality>().Property(m => m.AlternativeName)
                 .HasColumnName("municipality_name_alternative");
-            modelBuilder.Entity<ItalianMunicipalityModel>().Property(m => m.ProvinceId).HasColumnName("fk_province_id");
-            modelBuilder.Entity<ItalianMunicipalityModel>().Property(m => m.Code).HasColumnName("code");
+            modelBuilder.Entity<ItalianMunicipality>().Property(m => m.ProvinceId).HasColumnName("fk_province_id");
+            modelBuilder.Entity<ItalianMunicipality>().Property(m => m.Code).HasColumnName("code");
         }
 
         private string GetConnectionString(string dbName)
