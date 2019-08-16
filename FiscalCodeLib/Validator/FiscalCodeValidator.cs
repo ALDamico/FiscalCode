@@ -11,6 +11,17 @@ namespace FiscalCodeLib.Validator
 {
     public class FiscalCodeValidator
     {
+        public FiscalCodeValidator(string fiscalCodeToValidate, PersonalInfo person, CultureInfo targetCulture,
+            ILocalizationProvider localizationProvider)
+        {
+            _fiscalCodeToValidate = new FiscalCode(fiscalCodeToValidate);
+            _person = person;
+            _generator = new FiscalCodeGenerator(_person);
+            ValidationResults = new List<FiscalCodeValidationResult>();
+            _localizationProvider = localizationProvider;
+            Validate();
+        }
+
         public FiscalCodeValidator(string fiscalCodeToValidate, PersonalInfo person, CultureInfo targetCulture)
         {
             _fiscalCodeToValidate = new FiscalCode(fiscalCodeToValidate);
@@ -26,6 +37,7 @@ namespace FiscalCodeLib.Validator
             _fiscalCodeToValidate = fiscalCode;
             _person = person;
             _localizationProvider = new SqliteLocalizationProvider(targetCulture);
+            Validate();
         }
 
         public List<FiscalCodeValidationResult> Validate()
@@ -204,7 +216,7 @@ namespace FiscalCodeLib.Validator
         private readonly FiscalCode _fiscalCodeToValidate;
         private PersonalInfo _person;
         private readonly FiscalCodeGenerator _generator;
-        private readonly SqliteLocalizationProvider _localizationProvider;
+        private readonly ILocalizationProvider _localizationProvider;
         public bool IsValid => ValidationResults.All(result => result.Result == true);
     }
 }

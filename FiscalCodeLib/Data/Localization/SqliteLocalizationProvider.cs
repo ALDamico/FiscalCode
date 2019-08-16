@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FiscalCodeLib.Data.Localization
 {
-    public class SqliteLocalizationProvider : DbContext
+    public class SqliteLocalizationProvider : DbContext, ILocalizationProvider
     {
         public SqliteLocalizationProvider(CultureInfo targetCulture)
         {
