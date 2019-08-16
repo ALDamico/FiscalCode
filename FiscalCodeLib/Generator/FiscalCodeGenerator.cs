@@ -135,6 +135,8 @@ namespace FiscalCodeLib.Generator
             return CommonDataStructures.GetCheckDigit(accumulator);
         }
 
+        public FiscalCode MainFiscalCode => FiscalCodes[0];
+
         private void CalculateFiscalCodes()
         {
             string initialFiscalCode = CalculateSurnameTriplet() + CalculateNameTriplet() +

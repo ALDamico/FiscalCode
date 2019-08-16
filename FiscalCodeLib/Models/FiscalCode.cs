@@ -40,15 +40,15 @@ namespace FiscalCodeLib.Models
 
             try
             {
-                SurnameTriplet = fullFiscalCode.Substring(0, 3);
-                NameTriplet = fullFiscalCode.Substring(3, 3);
-                YearOfBirthRepresentation = fullFiscalCode.Substring(6, 2);
-                MonthRepresentation = fullFiscalCode.Substring(8, 1);
-                DayGenderRepresentation = fullFiscalCode.Substring(9, 2);
-                Code = fullFiscalCode.Substring(11, 4);
-                CheckDigit = fullFiscalCode[15];
+                SurnameTriplet = fullFiscalCode.Substring(0, 3).ToUpper();
+                NameTriplet = fullFiscalCode.Substring(3, 3).ToUpper();
+                YearOfBirthRepresentation = fullFiscalCode.Substring(6, 2).ToUpper();
+                MonthRepresentation = fullFiscalCode.Substring(8, 1).ToUpper();
+                DayGenderRepresentation = fullFiscalCode.Substring(9, 2).ToUpper();
+                Code = fullFiscalCode.Substring(11, 4).ToUpper();
+                CheckDigit = char.ToUpper(fullFiscalCode[15]);
             }
-            catch (IndexOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 //In theory we shouldn't be doing anything here
             }
@@ -68,7 +68,25 @@ namespace FiscalCodeLib.Models
             StringBuilder builder = new StringBuilder();
             builder.Append(SurnameTriplet).Append(NameTriplet).Append(YearOfBirthRepresentation)
                 .Append(MonthRepresentation).Append(DayGenderRepresentation).Append(Code).Append(CheckDigit);
+            return builder.ToString().Trim('\0');
+        }
+
+        public char CalculateCheckDigit()
+        {
+            string partialCode = GetPartialCode();
+            var checkDigit =
+                CommonDataStructures.GetCheckDigit(CommonDataStructures.GetAccumulationResult(partialCode));
+            return checkDigit;
+        }
+
+        private string GetPartialCode()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(SurnameTriplet).Append(NameTriplet).Append(YearOfBirthRepresentation)
+                .Append(MonthRepresentation).Append(DayGenderRepresentation).Append(Code);
             return builder.ToString();
         }
+
+        public int Length => ToString().Length;
     }
 }

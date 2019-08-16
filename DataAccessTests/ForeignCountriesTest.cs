@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using FiscalCodeLib.Data.DataAccess;
 using FiscalCodeLib.Enums;
 using FiscalCodeLib.Factories;
 using FiscalCodeLib.Generator;
 using FiscalCodeLib.Models;
+using FiscalCodeLib.Validator;
 using Xunit;
 
 namespace DataAccessTests
@@ -39,7 +41,7 @@ namespace DataAccessTests
         public void ReadTest()
         {
             var countries = new List<ForeignCountry>();
-            using (var dap = new DataAccessProvider())
+            using (var dap = new SqliteDataAccessProvider())
             {
                 countries = dap.ForeignCountries.ToList();
             }
@@ -55,6 +57,16 @@ namespace DataAccessTests
                 "BRONTE");
             FiscalCodeGenerator gen = new FiscalCodeGenerator(person);
             Assert.True(gen.FiscalCodes.Count == 8);
+        }
+
+        [Fact]
+        public void LocalizationTest()
+        {
+            FiscalCode fc = new FiscalCode("DMCNRL90E03B202A");
+            var person = new PersonalInfo("Andrea Luciano", "Damico", Gender.Male, new DateTime(1990, 5, 3),
+                "BRONTE");
+            FiscalCodeValidator validator = new FiscalCodeValidator(fc.ToString(), person, new CultureInfo("it-IT"));
+            Assert.True(validator.ValidationResults.Count == 8);
         }
     }
 }

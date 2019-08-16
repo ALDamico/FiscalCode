@@ -115,6 +115,30 @@ namespace FiscalCodeLib.Utils
             return ((char) ('A' + addend));
         }
 
+        public static int GetAccumulationResult(string partialFiscalCode)
+        {
+            var temporaryFiscalCode = partialFiscalCode;
+            if (temporaryFiscalCode.Length != 15)
+            {
+                throw new ArgumentException("An error occurred. Invalid length in temporary fiscal code");
+            }
+
+            var accumulator = 0;
+            for (var i = 0; i < temporaryFiscalCode.Length; i++)
+            {
+                if ((i + 1) % 2 == 0)
+                {
+                    accumulator += CommonDataStructures.EvenPositionMap[temporaryFiscalCode[i]];
+                }
+                else
+                {
+                    accumulator += CommonDataStructures.OddPositionMap[temporaryFiscalCode[i]];
+                }
+            }
+
+            return accumulator;
+        }
+
         public static readonly Dictionary<char, char> OmocodeSubstitutions = new Dictionary<char, char>()
         {
             {'0', 'L'},
