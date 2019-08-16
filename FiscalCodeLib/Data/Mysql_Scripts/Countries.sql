@@ -1,7 +1,7 @@
 CREATE TABLE Foreign_Countries
 (
     id                   INTEGER
-        PRIMARY KEY AUTOINCREMENT,
+        PRIMARY KEY AUTO_INCREMENT,
     fk_continent_id      INTEGER
         REFERENCES Continents,
     foreign_country_name TEXT,

@@ -1,7 +1,4 @@
-using System.Globalization;
-using FiscalCodeLib.Validator;
-
-namespace FiscalCodeLib.Data.Localization
+namespace FiscalCodeLib.Validator
 {
     public class ValidationMessageDto
     {
